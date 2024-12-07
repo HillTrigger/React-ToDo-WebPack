@@ -1,0 +1,8 @@
+@use "@/styles/color";
+@use "@/styles/fonts";
+
+* {
+  font-weight: 500;
+  color: color.$secondary;
+  font-family: fonts.$Roboto;
+}

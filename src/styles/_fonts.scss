@@ -1,0 +1,13 @@
+@font-face {
+  font-family: Roboto;
+  font-weight: 500;
+  font-style: normal;
+  src: local("Roboto"),
+    url("@/assests/fonts/Roboto/Roboto-Bold.woff2") format("woff2"),
+    url("@/assests/fonts/Roboto/Roboto-Medium.woff") format("woff"),
+    url("@/assests/fonts/Roboto/Roboto-Medium.ttf") format("ttf"),
+    url("@/assests/fonts/Roboto/Roboto-Medium.eot") format("eot");
+  font-display: swap;
+}
+
+$Roboto: "Roboto", Arial, sans-serif;
