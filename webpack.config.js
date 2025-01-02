@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
@@ -79,6 +80,7 @@ module.exports = {
       // inject: "body", // Скрипты будут вставлены в конец body
     }),
     new CleanWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     // new CopyWebpackPlugin({ // Плагин для копирования каталогов
     //   patterns: [
     //     {
@@ -137,6 +139,12 @@ module.exports = {
                   targets: "> 0.25%, not dead",
                   useBuiltIns: "usage",
                   corejs: 3,
+                },
+              ],
+              [
+                "@babel/preset-react",
+                {
+                  runtime: "automatic",
                 },
               ],
             ],
