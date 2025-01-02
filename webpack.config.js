@@ -22,8 +22,16 @@ const cssLoaders = (...extra) => {
     {
       loader: "css-loader",
     },
+    {
+      loader: "postcss-loader", // Добавляем postcss-loader
+      options: {
+        postcssOptions: {
+          config: path.resolve(__dirname, "postcss.config.js"), // Указываем путь к postcss.config.js
+        },
+      },
+    },
   ];
-  if (extra) {
+  if (extra.length) {
     loaders.push(...extra);
   }
   return loaders;
@@ -33,14 +41,14 @@ module.exports = {
   context: path.resolve(__dirname, "src"),
   devtool: isDev && "source-map",
   entry: {
-    index: "./index.js",
+    index: "./index.js", // Входной файл, убедитесь, что путь правильный
   },
   output: {
     filename: filename("js"),
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "docs"),
   },
   resolve: {
-    extensions: [".js", ".json"],
+    extensions: [".js", ".json", ".jsx"], // Добавляем .jsx
     alias: {
       "@": path.resolve(__dirname, "src"),
     },
@@ -71,13 +79,10 @@ module.exports = {
       }),
     ],
   },
-
   plugins: [
     new HTMLWebpackPlugin({
       template: "./index.html", // Путь к вашему шаблону
       favicon: "./assests/favicon.ico", //Путь к вашей иконке
-      // chunks: ["main"], // Порядок загрузки скриптов
-      // inject: "body", // Скрипты будут вставлены в конец body
     }),
     new CleanWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -97,14 +102,13 @@ module.exports = {
       filename: filename("css"),
     }),
   ],
-
   module: {
     rules: [
       {
         test: /\.(woff|woff2|ttf|eot)$/i,
         type: "asset/resource", // Webpack 5+ автоматически копирует шрифты в output
         generator: {
-          filename: "assets/fonts/[name][ext]", // Укажите путь, куда будут копироваться шрифты
+          filename: "assets/fonts/[name][ext]", // Путь, куда будут копироваться шрифты
         },
       },
       {
@@ -127,7 +131,8 @@ module.exports = {
         type: "asset/resource",
       },
       {
-        test: /\.js$/,
+        // Обработка JSX и JS файлов
+        test: /\.(js|jsx)$/, // Добавляем и .jsx
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -142,9 +147,9 @@ module.exports = {
                 },
               ],
               [
-                "@babel/preset-react",
+                "@babel/preset-react", // Для обработки JSX в React
                 {
-                  runtime: "automatic",
+                  runtime: "automatic", // Включает новый автоматический runtime (для React 17+)
                 },
               ],
             ],
@@ -153,7 +158,6 @@ module.exports = {
       },
     ],
   },
-
   devServer: {
     port: 4200,
     hot: isDev,

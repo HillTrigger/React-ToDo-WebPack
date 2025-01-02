@@ -1,19 +1,12 @@
 import React from "react";
-import "./index.scss";
-
-const onClickEvent = (e) => {
-  e.preventDefault();
-  alert("You Clicked Me!");
-};
+import { ToDo } from "./components/todo/index";
+import "./styles/tailwind.css"; // Подключаем CSS с Tailwind
 
 const App = () => {
   return (
-    <div className="content">
-      <div className="label">Create React App Without CRA😊</div>
-      <button className="btn" onClick={onClickEvent}>
-        Click Me 😎
-      </button>
-    </div>
+    <>
+      <ToDo />
+    </>
   );
 };
 
